@@ -1,0 +1,6 @@
+use {{@callback
+    $namespace = $creator->getResourceNamespace('facade');
+    $className = $creator->getResourceName('facade');
+
+    return $namespace . '\\' . $className;
+@callback}};

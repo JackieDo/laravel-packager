@@ -1,0 +1,6 @@
+
+        $this->app->singleton('command.{{@package slug_project @package}}', function ($app) {
+            return new {{@callback return $creator->getResourceName('command'); @callback}};
+        });
+
+        $this->commands('command.{{@package slug_project @package}}');

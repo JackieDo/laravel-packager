@@ -1,0 +1,6 @@
+use {{@callback
+    $namespace = $creator->getResourceNamespace('model');
+    $className = $creator->getResourceName('model');
+
+    return $namespace . '\\' . $className;
+@callback}};

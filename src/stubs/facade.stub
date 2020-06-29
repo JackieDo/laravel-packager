@@ -1,0 +1,24 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('facade'); @callback}};
+
+use Illuminate\Support\Facades\Facade;
+
+/**
+ * The {{@callback return $creator->getResourceName('facade'); @callback}} facade.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+class {{@callback return $creator->getResourceName('facade'); @callback}} extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return '{{@package slug_project @package}}';
+    }
+}

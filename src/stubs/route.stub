@@ -1,0 +1,18 @@
+<?php
+
+Route::group(['prefix' => '{{@package slug_project @package}}'], function() {
+    Route::get('demo', {{@callback
+
+if (array_key_exists('controller', $creator->resourceDirPaths)) {
+    $namespace = $creator->getResourceNamespace('controller');
+    $className = $creator->getResourceName('controller');
+
+    return "'" . $namespace . '\\' . $className . "@demo'";
+} else {
+    return "function() {
+        return 'Welcome to the [{{@package name @package}}] package';
+    }";
+}
+
+    @callback}});
+});

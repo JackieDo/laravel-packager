@@ -1,0 +1,16 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('exception'); @callback}};
+
+use Exception;
+
+/**
+ * The {{@callback return $creator->getResourceName('exception'); @callback}} class.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+class {{@callback return $creator->getResourceName('exception'); @callback}} extends Exception
+{
+    //
+}

@@ -1,0 +1,17 @@
+<?php
+
+namespace {{@package namespace @package}};
+
+/**
+ * The {{@package project @package}} class.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+class {{@package project @package}}
+{
+    public function demo()
+    {
+        return 'Welcome to the [{{@package name @package}}] package';
+    }
+}

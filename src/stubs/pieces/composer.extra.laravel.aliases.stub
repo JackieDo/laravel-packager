@@ -1,0 +1,3 @@
+            "aliases": {
+                "{{@package project @package}}": "{{@package addslashed_namespace @package}}\\Facades\\{{@package project @package}}"
+            },

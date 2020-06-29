@@ -1,0 +1,13 @@
+<?php
+
+if (! function_exists('{{@package camel_project @package}}Demo')) {
+    /**
+     * The {{@package camel_project @package}}Demo function
+     *
+     * @return string
+     */
+    function {{@package camel_project @package}}Demo()
+    {
+        return 'Welcome to the {{@package camel_project @package}}Demo() function for the [{{@package name @package}}] package';
+    }
+}

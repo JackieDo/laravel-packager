@@ -1,0 +1,42 @@
+{
+    "name": "jackiedo/laravel-packager",
+    "description": "A CLI tool to create packages for Laravel application.",
+    "keywords": [
+        "laravel",
+        "package",
+        "packer",
+        "builder",
+        "generator",
+        "skeleton"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jackie Do",
+            "email": "anhvudo@gmail.com",
+            "homepage": "https://github.com/JackieDo"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/filesystem": "^5.1|^6.0|^7.0",
+        "illuminate/console": "^5.1|^6.0|^7.0",
+        "illuminate/support": "^5.1|^6.0|^7.0"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Jackiedo\\Packager\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jackiedo\\Packager\\PackagerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable"
+}

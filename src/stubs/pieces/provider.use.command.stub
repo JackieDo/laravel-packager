@@ -1,0 +1,6 @@
+use {{@callback
+    $namespace = $creator->getResourceNamespace('command');
+    $className = $creator->getResourceName('command');
+
+    return $namespace . '\\' . $className;
+@callback}};

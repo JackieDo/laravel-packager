@@ -1,0 +1,14 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('trait'); @callback}};
+
+/**
+ * The {{@callback return $creator->getResourceName('trait'); @callback}} trait.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+trait {{@callback return $creator->getResourceName('trait'); @callback}}
+{
+    //
+}

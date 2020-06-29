@@ -1,0 +1,20 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Demo Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used for development of package
+    | {{@package name @package}}
+    |
+    */
+
+    'author_name'    => '{{@package author_name @package}}',
+    'author_email'   => '{{@package author_email @package}}',
+    'package_vendor' => '{{@package vendor @package}}',
+    'package_name'   => '{{@package project @package}}'
+
+];

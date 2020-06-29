@@ -1,0 +1,35 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('model'); @callback}};
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * The {{@callback return $creator->getResourceName('model'); @callback}} class.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+class {{@callback return $creator->getResourceName('model'); @callback}} extends Model
+{
+    /**
+    * Table name.
+    *
+    * @var string
+    */
+    protected $table = '{{@package snake_project @package}}';
+
+    /**
+    * The attributes that are mass assignable.
+    *
+    * @var mixed
+    */
+    protected $fillable = [];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [];
+}

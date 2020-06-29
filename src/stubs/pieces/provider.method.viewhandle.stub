@@ -1,0 +1,15 @@
+
+    /**
+     * Loading and publishing package's views
+     *
+     * @return void
+     */
+    protected function viewHandle()
+    {
+        $packageViewsPath = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourceDirPath("view"), '/'); @callback}}';
+
+        $this->loadViewsFrom($packageViewsPath, '{{@package slug_project @package}}');
+        $this->publishes([
+            $packageViewsPath => base_path('resources/views/vendor/{{@package slug_project @package}}'),
+        ], 'views');
+    }

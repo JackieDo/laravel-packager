@@ -1,0 +1,14 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('interface'); @callback}};
+
+/**
+ * The {{@callback return $creator->getResourceName('interface'); @callback}} interface.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+interface {{@callback return $creator->getResourceName('interface'); @callback}}
+{
+    //
+}

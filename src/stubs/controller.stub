@@ -1,0 +1,32 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('controller'); @callback}};
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+{{@import controller.use.facade|facade @import}}
+{{@import controller.use.model|model @import}}
+
+/**
+ * The {{@callback return $creator->getResourceName('controller'); @callback}} class.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+class {{@callback return $creator->getResourceName('controller'); @callback}} extends Controller
+{
+    public function demo()
+    {
+        {{@callback
+            if (array_key_exists('view', $creator->resourceDirPaths)) {
+                return "return view('{{@package slug_project @package}}::demo');";
+            }
+
+            if (array_key_exists('facade', $creator->resourceDirPaths)) {
+                return 'return {{@package project @package}}::demo();';
+            }
+
+            return "return 'Welcome to the [{{@package name @package}}] package';";
+        @callback}}
+    }
+}

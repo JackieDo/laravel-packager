@@ -1,0 +1,58 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('command'); @callback}};
+
+use Illuminate\Console\Command;
+
+/**
+ * The {{@callback return $creator->getResourceName('command'); @callback}} class.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+class {{@callback return $creator->getResourceName('command'); @callback}} extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = '{{@package slug_project @package}}:demo';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Demo command for the [{{@package name @package}}] package';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
+        $this->info('Welcome to first command for the [{{@package name @package}}] package');
+    }
+
+    /**
+     * Th alias of the fire() method.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+}

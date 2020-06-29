@@ -1,0 +1,14 @@
+<?php
+
+namespace {{@callback return $creator->getResourceNamespace('abstract'); @callback}};
+
+/**
+ * The {{@callback return $creator->getResourceName('abstract'); @callback}} abstraction.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+abstract class {{@callback return $creator->getResourceName('abstract'); @callback}}
+{
+    //
+}

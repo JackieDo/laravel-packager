@@ -1,0 +1,3 @@
+        "files": [
+            "src/{{@callback return relative_path($creator->srcDirPath, $creator->getResourcePath('helper'), '/'); @callback}}"
+        ],
