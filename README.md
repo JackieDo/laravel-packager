@@ -1,4 +1,10 @@
 # Laravel Packager
+
+[![Latest Stable Version](https://poser.pugx.org/jackiedo/laravel-packager/v)](//packagist.org/packages/jackiedo/laravel-packager)
+[![Total Downloads](https://poser.pugx.org/jackiedo/laravel-packager/downloads)](//packagist.org/packages/jackiedo/laravel-packager)
+[![Latest Unstable Version](https://poser.pugx.org/jackiedo/laravel-packager/v/unstable)](//packagist.org/packages/jackiedo/laravel-packager)
+[![License](https://poser.pugx.org/jackiedo/laravel-packager/license)](//packagist.org/packages/jackiedo/laravel-packager)
+
 This package is a CLI tool that helps you build a fully structured package for the Laravel application without spending a lot of time.
 
 You do not need to struggle with the skeleton initialization for your package anymore. Instead, focus on writing the source code and letting the organization of the package structure for Laravel Packager.
@@ -23,6 +29,7 @@ You do not need to struggle with the skeleton initialization for your package an
     * Route file
     * Helper file
     * ...
+* Lets install and use the newly created package as a local repository
 
 # Versions and compatibility
 This package is compatible with versions of **Laravel 5.1 and above**. However, scaffold resources files generated from this package are compatible with versions of Laravel 5.0 and above.
