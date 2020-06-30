@@ -13,23 +13,8 @@ You do not need to struggle with the skeleton initialization for your package an
 * Build directory structure for package.
 * Generate a standard composer.json file for package.
 * Generate a standard Service Provider file for package.
-* Generate some scaffold resources file, such as:
-    * Facade files
-    * Interface files
-    * Abstract files
-    * Exception files
-    * Controller files
-    * Middleware files
-    * Model files
-    * Artisan CLI files
-    * Configuration file
-    * Migration files
-    * Language files
-    * View files
-    * Route file
-    * Helper file
-    * ...
-* Lets install and use the newly created package as a local repository
+* Generate some scaffold resource files, such as: Facade, Interface, Abstract, Trait, Exception, Controller, Middleware, Model, Artisan Command, Config, Migration, Language, View, Route, Helper...
+* Lets install and use the newly created package as a local repository.
 
 # Versions and compatibility
 This package is compatible with versions of **Laravel 5.1 and above**. However, scaffold resources files generated from this package are compatible with versions of Laravel 5.0 and above.
