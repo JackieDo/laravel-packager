@@ -3,6 +3,8 @@
 namespace {{@callback return $creator->getResourceNamespace('command'); @callback}};
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * The {{@callback return $creator->getResourceName('command'); @callback}} class.
@@ -13,11 +15,11 @@ use Illuminate\Console\Command;
 class {{@callback return $creator->getResourceName('command'); @callback}} extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = '{{@package slug_project @package}}:demo';
+    protected $name = '{{@package slug_project @package}}:demo';
 
     /**
      * The console command description.
@@ -54,5 +56,25 @@ class {{@callback return $creator->getResourceName('command'); @callback}} exten
     public function handle()
     {
         $this->fire();
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [];
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [];
     }
 }
