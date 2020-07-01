@@ -9,17 +9,17 @@ This package is a CLI tool that helps you build a fully structured package for t
 
 You do not need to struggle with the skeleton initialization for your package anymore. Instead, focus on writing the source code and letting the organization of the package structure for Laravel Packager.
 
-# Features
+## Features
 * Build directory structure for package.
 * Generate a standard composer.json file for package.
 * Generate a standard Service Provider file for package.
-* Generate some scaffold resource files, such as: Facade, Interface, Abstract, Trait, Exception, Controller, Middleware, Model, Artisan Command, Config, Migration, Language, View, Route, Helper...
-* Lets install and use the newly created package as a local repository.
+* Generate some scaffold resources such as: Facade, Interface, Abstract, Trait, Exception, Controller, Middleware, Model, Artisan Command, Config, Migration, Language, View, Route, Helper...
+* Lets install and use the created package as a local repository.
 
-# Versions and compatibility
-This package is compatible with versions of **Laravel 5.1 and above**. However, scaffold resources files generated from this package are compatible with versions of Laravel 5.0 and above.
+## Versions and compatibility
+This package is compatible with versions of **Laravel 5.1 and above**. However, the scaffold resources generated from this package are compatible with versions of Laravel 5.0 and above.
 
-# Overview
+## Overview
 Look at one of the following topics to learn more about Laravel Packager
 
 * [Installation](#installation)
@@ -32,10 +32,10 @@ Look at one of the following topics to learn more about Laravel Packager
 * [Configuration](#configuration)
 * [Other documentation](#other-documentation)
 
-## Installation
+### Installation
 You can install Laravel Packager through [Composer](https://getcomposer.org) with the steps below.
 
-### Require package
+#### Require package
 At the root of your application directory, run the following command:
 
 ```shell
@@ -44,15 +44,15 @@ $ composer require jackiedo/laravel-packager
 
 **Note:** Since Laravel 5.5, [service providers and aliases are automatically registered](https://laravel.com/docs/5.5/packages#package-discovery), you don't need to do anything more. But if you are using Laravel 5.4 or earlier, you must perform one more step below.
 
-### Register service provider
+#### Register service provider
 Open `config/app.php`, and add a new line to the `providers` section:
 
 ```php
 Jackiedo\Packager\PackagerServiceProvider::class,
 ```
 
-## Usage
-### Create a new package
+### Usage
+#### Create a new package
 **Usage**:
 
 ```shell
@@ -102,17 +102,17 @@ $ php artisan packager:new jackiedo/second-demo --install
 **Note**:
 
 - All packages will be placed in the `packages` directory at the base path of your Laravel application.
-- If you do not use the `--install` option in command, you can install your package after creation using the composer command `composer require your/project`. This is useful in case you want to develop complete source code before installing it.
+- If you do not use the `--install` option in the command, you can install your package later using the composer command `composer require your/project`. This is useful in case you want to develop complete source code before installing it.
 
-### List all packages
+#### List all packages
 **Usage**:
 
 ```shell
 $ php artisan packager:list
 ```
 
-### Unregister an existing package
-By default, when a package is created, it will be registered to the repositories section in Laravel's `composer.json` file automatically. This allows you to install your package as a local repository. If you want to cancel this registration, use the following command:
+#### Unregister an existing package
+By default, when a package is created, it will be registered to the repositories section in Laravel's `composer.json` file automatically. This allows you to install your package as a local repository. If for any purpose you want to cancel this registration, use the following command:
 
 **Usage**:
 
@@ -147,10 +147,10 @@ $ php artisan packager:unregister jackiedo/first-demo
 
 **Note**:
 
-- If the package is installed after creation, you need use the `--uninstall` option in your `packager:unregister` command or run the command `composer remove your/project` to uninstall it before unregister.
+- If the package was previously installed, you need run the command `composer remove your/project` to uninstall it first or use the `--uninstall` option in your `packager:unregister` command.
 - Once you have unregistered, you cannot install the package until you register again.
 
-### Register an existing package
+#### Register an existing package
 After unregister an existing package out of repositories section of `composer.json` file, if you want to register it again, use the following command:
 
 **Usage**:
@@ -177,7 +177,7 @@ Options:
                         2 for more verbose output and 3 for debug
 ```
 
-### Remove an existing package
+#### Remove an existing package
 **Usage**:
 
 ```shell
@@ -209,7 +209,7 @@ Options:
 $ php artisan packger:remove jackiedo/first-demo --uninstall
 ```
 
-## Configuration
+### Configuration
 If you want to set up more advanced settings such as skeleton structure, suggestions ... you need to publish the configuration file using the `vendor:publish` command as follow:
 
 ```shell
@@ -218,12 +218,12 @@ $ php artisan vendor:publish --provider="Jackiedo\Packager\PackagerServiceProvid
 
 **Note**: Please read the instructions in the configuration file carefully before making any settings.
 
-## Other documentation
+### Other documentation
 For more documentation about package development, you can visit Official Laravel Documentation pages:
 
 - [Laravel Package Development](https://laravel.com/docs/7.x/packages)
 - [Laravel Service Provider](https://laravel.com/docs/7.x/providers)
 - [Laravel Artisan Console](https://laravel.com/docs/7.x/artisan)
 
-# License
+## License
 [MIT](https://github.com/JackieDo/laravel-packager/blob/master/LICENSE) © Jackie Do
