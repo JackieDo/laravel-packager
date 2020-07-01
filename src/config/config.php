@@ -4,39 +4,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default package author name
+    | Creation suggestions
     |--------------------------------------------------------------------------
     |
-    | This setting allows suggestions for the author's name whenever using the
-    | Artisan "packager:new" command.
+    | This setting allow to set suggestions during package creation.
     |
     */
 
-    'default_author_name' => null,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default package author e-mail address
-    |--------------------------------------------------------------------------
-    |
-    | This setting allows suggestions for the author's email whenever using the
-    | Artisan "packager:new" command.
-    |
-    */
-
-    'default_author_email' => null,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default package license
-    |--------------------------------------------------------------------------
-    |
-    | This setting allows suggestions for the package license whenever using
-    | the Artisan "packager:new" command.
-    |
-    */
-
-    'default_license' => null,
+    'suggestions' => [
+        'author_name'  => null,
+        'author_email' => null,
+        'license'      => null,
+    ],
 
     /*
     |--------------------------------------------------------------------------

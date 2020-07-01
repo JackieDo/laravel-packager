@@ -142,12 +142,12 @@ class NewPackageCommand extends Command
         $homepage    = $this->option('homepage');
 
         if (empty($authorName)) {
-            $suggestion = $this->config->get('packager.default_author_name') ?: Str::title(str_replace('-', ' ', $this->package->slug_vendor));
+            $suggestion = $this->config->get('packager.suggestions.author_name') ?: Str::title(str_replace('-', ' ', $this->package->slug_vendor));
             $authorName = $this->ask('Author name', $suggestion);
         }
 
         if (empty($authorEmail)) {
-            $suggestion  = $this->config->get('packager.default_author_email') ?: $this->package->lower_vendor . '@' . $this->package->lower_project . '.com';
+            $suggestion  = $this->config->get('packager.suggestions.author_email') ?: $this->package->lower_vendor . '@' . $this->package->lower_project . '.com';
             $authorEmail = $this->ask('Author email', $suggestion);
         }
 
@@ -162,7 +162,7 @@ class NewPackageCommand extends Command
         }
 
         if (empty($license)) {
-            $suggestion = $this->config->get('packager.default_license') ?: 'MIT';
+            $suggestion = $this->config->get('packager.suggestions.license') ?: 'MIT';
             $license    = $this->ask('Package license', $suggestion);
         }
 
