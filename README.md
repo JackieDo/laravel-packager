@@ -9,6 +9,8 @@ This package is a CLI tool that helps you build a fully structured package for t
 
 You do not need to struggle with the skeleton initialization for your package anymore. Instead, focus on writing the source code and letting the organization of the package structure for Laravel Packager.
 
+![Laravel Packager Cover](https://user-images.githubusercontent.com/9862115/86195079-52561980-bb7a-11ea-98bf-7ef00292bc10.jpg)
+
 ## Features
 * Build directory structure for package.
 * Generate a standard composer.json file for package.
