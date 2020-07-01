@@ -24,7 +24,7 @@ trait ValidatePackageName
      */
     protected function validatePackageName($name)
     {
-        if (!preg_match('/^[\w-\/]+$/', $name)) {
+        if (!preg_match('/^[\w|\/]+$/', $name)) {
             throw new InvalidArgumentException('The package name can only contain letters, numbers, underscores, dashes and slashes.');
         }
 
