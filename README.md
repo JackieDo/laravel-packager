@@ -24,11 +24,11 @@ Look at one of the following topics to learn more about Laravel Packager
 
 * [Installation](#installation)
 * [Usage](#usage)
-    - [Create a new package](#create-a-new-package)
-    - [List all packages](#list-all-packages)
-    - [Unregister an existing package](#unregister-an-existing-package)
-    - [Register an existing package](#register-an-existing-package)
-    - [Remove an existing package](#remove-an-existing-package)
+    - [Create a new package](#1-create-a-new-package)
+    - [List all packages](#2-list-all-packages)
+    - [Unregister an existing package](#3-unregister-an-existing-package)
+    - [Register an existing package](#4-register-an-existing-package)
+    - [Remove an existing package](#5-remove-an-existing-package)
 * [Configuration](#configuration)
 * [Other documentation](#other-documentation)
 
@@ -52,7 +52,7 @@ Jackiedo\Packager\PackagerServiceProvider::class,
 ```
 
 ### Usage
-#### Create a new package
+#### 1. Create a new package
 **Usage**:
 
 ```shell
@@ -104,14 +104,14 @@ $ php artisan packager:new jackiedo/second-demo --install
 - All packages will be placed in the `packages` directory at the base path of your Laravel application.
 - If you do not use the `--install` option in the command, you can install your package later using the composer command `composer require your/project`. This is useful in case you want to develop complete source code before installing it.
 
-#### List all packages
+#### 2. List all packages
 **Usage**:
 
 ```shell
 $ php artisan packager:list
 ```
 
-#### Unregister an existing package
+#### 3. Unregister an existing package
 By default, when a package is created, it will be registered to the repositories section in Laravel's `composer.json` file automatically. This allows you to install your package as a local repository. If for any purpose you want to cancel this registration, use the following command:
 
 **Usage**:
@@ -150,7 +150,7 @@ $ php artisan packager:unregister jackiedo/first-demo
 - If the package was previously installed, you need run the command `composer remove your/project` to uninstall it first or use the `--uninstall` option in your `packager:unregister` command.
 - Once you have unregistered, you cannot install the package until you register again.
 
-#### Register an existing package
+#### 4. Register an existing package
 After unregister an existing package out of repositories section of `composer.json` file, if you want to register it again, use the following command:
 
 **Usage**:
@@ -177,7 +177,7 @@ Options:
                         2 for more verbose output and 3 for debug
 ```
 
-#### Remove an existing package
+#### 5. Remove an existing package
 **Usage**:
 
 ```shell
