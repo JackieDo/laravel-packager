@@ -149,7 +149,7 @@ class PackageManager implements ManagerRepository
     public function getInstallStatus($packageName)
     {
         $lockKeys     = $this->getJsonFileAsArray(base_path('composer.lock'));
-        $allInstalled = Arr::get($lockKeys, 'packages', []);
+        $allInstalled = array_merge(Arr::get($lockKeys, 'packages', []), Arr::get($lockKeys, 'packages-dev', []));
         $status       = [
             'installed'   => false,
             'required_by' => [],
