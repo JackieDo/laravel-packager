@@ -1,5 +1,9 @@
 <?php
-
+{{@callback
+if (version_compare(app()->version(), '8.0.0', '>=')) {
+    return PHP_EOL . "use Illuminate\Support\Facades\Route;" . PHP_EOL;
+}
+@callback}}
 Route::group(['prefix' => '{{@package slug_project @package}}'], function() {
     Route::get('demo', {{@callback
 
