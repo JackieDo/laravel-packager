@@ -6,7 +6,6 @@ use Exception;
 use Jackiedo\Packager\Console\Command;
 use Jackiedo\Packager\Traits\ValidatePackageName;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * The command to remove package.

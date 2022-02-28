@@ -17,14 +17,14 @@ class Command extends IlluminateCommand
     /**
      * The config repository.
      *
-     * @var Illuminate\Config\Repository
+     * @var \Illuminate\Config\Repository
      */
     protected $config;
 
     /**
      * The package manager instance.
      *
-     * @var Jackiedo\Packager\PackageManager
+     * @var \Jackiedo\Packager\PackageManager
      */
     protected $manager;
 

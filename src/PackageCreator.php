@@ -2,7 +2,6 @@
 
 namespace Jackiedo\Packager;
 
-use ErrorException;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
@@ -21,14 +20,14 @@ class PackageCreator implements CreatorRepository
     /**
      * The config repository.
      *
-     * @var Illuminate\Config\Repository
+     * @var \Illuminate\Config\Repository
      */
     protected $config;
 
     /**
      * The filesystem handler.
      *
-     * @var Illuminate\Filesystem\Filesystem
+     * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
 
@@ -89,6 +88,13 @@ class PackageCreator implements CreatorRepository
     protected $resourceDirPaths = [];
 
     /**
+     * Stubs versions compatible with Laravel thread version
+     *
+     * @var array
+     */
+    private static $compatibleStubVersions = [];
+
+    /**
      * Create a new package creator instance.
      *
      * @param object $config The config repository instance
@@ -98,9 +104,10 @@ class PackageCreator implements CreatorRepository
      */
     public function __construct(Config $config, Filesystem $files)
     {
-        $this->config      = $config;
-        $this->files       = $files;
-        $this->tempStorage = $this->config->get('packager.temporary_storage') ?: storage_path('packager/temp');
+        $this->config                 = $config;
+        $this->files                  = $files;
+        $this->tempStorage            = $this->config->get('packager.temporary_storage') ?: storage_path('packager/temp');
+        self::$compatibleStubVersions = self::findCompatibleStubVersions();
     }
 
     /**
@@ -214,7 +221,7 @@ class PackageCreator implements CreatorRepository
      *
      * @param string $resource
      *
-     * @return void
+     * @return string
      */
     public function getResourcePath($resource)
     {
@@ -525,8 +532,8 @@ class PackageCreator implements CreatorRepository
      */
     protected function copyStub($stubName, $toFile, $formatContent = true, $defaultContent = null)
     {
-        $stubFile = __DIR__ . '/stubs//' . $stubName . '.stub';
-        $content  = $this->files->isFile($stubFile) ? $this->files->get($stubFile) : $defaultContent;
+        $stubFile = self::getStubFilePath($stubName);
+        $content  = !is_null($stubFile) ? $this->files->get($stubFile) : $defaultContent;
 
         if ($formatContent) {
             $content = $this->formatContent($content);
@@ -558,13 +565,13 @@ class PackageCreator implements CreatorRepository
                     return null;
                 }
 
-                $importFile = __DIR__ . '/stubs/pieces/' . $segments[0] . '.stub';
+                $importFile = self::getStubFilePath('pieces/' . $segments[0]);
             } else {
                 // Import file without condition
-                $importFile = __DIR__ . '/stubs/pieces/' . $matchContent . '.stub';
+                $importFile = self::getStubFilePath('pieces/' . $matchContent);
             }
 
-            $importContent = $this->files->isFile($importFile) ? $this->files->get($importFile) : null;
+            $importContent = !is_null($importFile) ? $this->files->get($importFile) : null;
 
             return $this->formatContent($importContent);
         }, $content);
@@ -595,5 +602,86 @@ class PackageCreator implements CreatorRepository
         }, $content);
 
         return $content;
+    }
+
+    /**
+     * Get the path to stub file compatible with the Laravel thread version
+     *
+     * @param string $stub The path to stub file from stub folder (without extension)
+     *
+     * @return string|null
+     */
+    private function getStubFilePath($stub)
+    {
+        $stub = trim($stub, '/\\');
+
+        foreach (self::$compatibleStubVersions as $folder) {
+            $stubFile = unify_separator(__DIR__ . '/stubs//' . $folder . '/' . $stub . '.stub');
+
+            if ($this->files->isFile($stubFile)) {
+                return $stubFile;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Find stub versions compatible with Laravel thread version
+     *
+     * @return array
+     */
+    private function findCompatibleStubVersions()
+    {
+        $stubSubFolders = array_map(function ($path) {
+            return basename($path);
+        }, $this->files->glob(__DIR__ . '/stubs/*', GLOB_ONLYDIR));
+
+        $versionFolders = array_values(array_filter($stubSubFolders, function ($name, $index) {
+            $version = self::getFolderVersion($name);
+
+            return preg_match('/^\d+\.\d+$/', $version) && version_compare($version, self::findLaravelThreadVersion(), '<=');
+        }, ARRAY_FILTER_USE_BOTH));
+
+        uksort($versionFolders, function($front, $behind) {
+            $front  = self::getFolderVersion($front);
+            $behind = self::getFolderVersion($behind);
+
+            return version_compare($behind, $front);
+        });
+
+        array_push($versionFolders, 'default');
+
+        return $versionFolders;
+    }
+
+    /**
+     * Get version string from folder name
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    private function getFolderVersion($name)
+    {
+        return str_replace('laravel_', '', $name);
+    }
+
+    /**
+     * Find the thread version of Laravel from current Laravel version.
+     *
+     * @return string
+     */
+    private function findLaravelThreadVersion()
+    {
+        $laravelVersionParts = explode('.', app()->version());
+
+        array_pop($laravelVersionParts);
+
+        if ((int) $laravelVersionParts[0] >= 6) {
+            return $laravelVersionParts[0] . '.0';
+        }
+
+        return implode('.', $laravelVersionParts);
     }
 }

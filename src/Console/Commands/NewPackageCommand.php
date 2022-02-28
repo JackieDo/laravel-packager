@@ -3,12 +3,10 @@
 namespace Jackiedo\Packager\Console\Commands;
 
 use Exception;
-use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Jackiedo\Packager\Console\Command;
 use Jackiedo\Packager\Package;
-use Jackiedo\Packager\PackageManager;
 use Jackiedo\Packager\Traits\ValidatePackageName;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -41,7 +39,7 @@ class NewPackageCommand extends Command
     /**
      * The package instance.
      *
-     * @var Jackiedo\Packager\Package
+     * @var \Jackiedo\Packager\Package
      */
     protected $package;
 
@@ -121,7 +119,7 @@ class NewPackageCommand extends Command
         }
 
         $this->successBlock('Your package has been created successfully.');
-        $this->whiteBlock('You can install your package using the command: "composer require ' . $this->package->name . '"');
+        $this->whiteBlock('You can install your package using the command: "composer require ' . $this->package->name . ':*"');
     }
 
     /**

@@ -21,21 +21,21 @@ class PackageManager implements ManagerRepository
     /**
      * The config repository.
      *
-     * @var Illuminate\Config\Repository
+     * @var \Illuminate\Config\Repository
      */
     protected $config;
 
     /**
      * The filesystem handler.
      *
-     * @var Illuminate\Filesystem\Filesystem
+     * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
 
     /**
      * The package creator.
      *
-     * @var Jackiedo\Packager\PackageCreator
+     * @var \Jackiedo\Packager\PackageCreator
      */
     protected $creator;
 
@@ -49,9 +49,9 @@ class PackageManager implements ManagerRepository
     /**
      * Create a new package creator instance.
      *
-     * @param object $config  The config repository instance
-     * @param object $files   The filesystem handler instance
-     * @param object $creator The package creator
+     * @param \Illuminate\Config\Repository      $config  The config repository instance
+     * @param \Illuminate\Filesystem\Filesystem  $files   The filesystem handler instance
+     * @param \Jackiedo\Packager\PackageCreator  $creator The package creator
      *
      * @return void
      */
@@ -316,7 +316,7 @@ class PackageManager implements ManagerRepository
         $command = [
             'composer',
             'require',
-            $packageName,
+            $packageName . ':*',
         ];
 
         return $this->runProcess($command, null, null, null);
@@ -370,14 +370,13 @@ class PackageManager implements ManagerRepository
      */
     protected function runProcess(array $command, $workingDir = null, $timeout = 60, $idleTimeout = 60)
     {
-        $workingDir     = $workingDir ?: base_path();
-        $laravelVersion = app()->version();
+        $workingDir = $workingDir ?: base_path();
 
-        if (version_compare($laravelVersion, '5.6.0', '>=')) {
-            $process = new Process($command, $workingDir);
-        } else {
-            $process = new Process(implode(' ', $command), $workingDir);
+        if (version_compare(app()->version(), '5.6.0', '<')) {
+            $command = implode(' ', $command);
         }
+
+        $process = new Process($command, $workingDir);
 
         $process->setTimeout($timeout);
         $process->setIdleTimeout($idleTimeout);
