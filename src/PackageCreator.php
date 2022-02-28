@@ -553,6 +553,8 @@ class PackageCreator implements CreatorRepository
      */
     protected function formatContent($content)
     {
+        $content = (string) $content;
+
         // Handle the @import directive
         $content = preg_replace_callback('/\h*\{\{\@import\h+(.*)\h+\@import\}\}\h*\r*\n+/U', function ($match) {
             $matchContent = $match[1];
@@ -613,7 +615,7 @@ class PackageCreator implements CreatorRepository
      */
     private function getStubFilePath($stub)
     {
-        $stub = trim($stub, '/\\');
+        $stub = trim((string) $stub, '/\\');
 
         foreach (self::$compatibleStubVersions as $folder) {
             $stubFile = unify_separator(__DIR__ . '/stubs//' . $folder . '/' . $stub . '.stub');
