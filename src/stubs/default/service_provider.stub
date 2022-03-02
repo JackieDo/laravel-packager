@@ -14,28 +14,14 @@ use Illuminate\Support\ServiceProvider;
 class {{@package project @package}}ServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application events.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        // Bootstrap handle
-        {{@import provider.boot.route|route @import}}
-        {{@import provider.boot.config|config @import}}
-        {{@import provider.boot.lang|lang @import}}
-        {{@import provider.boot.view|view @import}}
-        {{@import provider.boot.asset|asset @import}}
-        {{@import provider.boot.migration|migration @import}}
-    }
-
-    /**
      * Register the service provider.
      *
      * @return void
      */
     public function register()
     {
+        {{@import provider.register.config|config @import}}
+        // Register package's main service
         $this->app->singleton('{{@package slug_project @package}}', function ($app) {
             return new {{@package project @package}};
         });
@@ -43,7 +29,37 @@ class {{@package project @package}}ServiceProvider extends ServiceProvider
     }
 
     /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Bootstrap handle
+        {{@import provider.boot.config|config @import}}
+        {{@import provider.boot.commands|command @import}}
+        {{@import provider.boot.routes|route @import}}
+        {{@import provider.boot.langs|lang @import}}
+        {{@import provider.boot.views|view @import}}
+        {{@import provider.boot.assets|asset @import}}
+        {{@import provider.boot.migrations|migration @import}}
+    }
+
+    /**
+     * Determine if the provider is deferred.
+     *
+     * @return bool
+     */
+    public function isDeferred()
+    {
+        return false;
+    }
+
+    /**
      * Get the services provided by the provider.
+     *
+     * This method is only really useful when the `isDeferred()` method above
+     * returns `true`
      *
      * @return array
      */
@@ -54,10 +70,11 @@ class {{@package project @package}}ServiceProvider extends ServiceProvider
             {{@import provider.provides.command|command @import}}
         ];
     }
-    {{@import provider.method.routehandle|route @import}}
-    {{@import provider.method.confighandle|config @import}}
-    {{@import provider.method.langhandle|lang @import}}
-    {{@import provider.method.viewhandle|view @import}}
-    {{@import provider.method.assethandle|asset @import}}
-    {{@import provider.method.migrationhandle|migration @import}}
+    {{@import provider.method.bootconfig|config @import}}
+    {{@import provider.method.bootcommands|command @import}}
+    {{@import provider.method.bootroutes|route @import}}
+    {{@import provider.method.bootlangs|lang @import}}
+    {{@import provider.method.bootviews|view @import}}
+    {{@import provider.method.bootassets|asset @import}}
+    {{@import provider.method.bootmigrations|migration @import}}
 }

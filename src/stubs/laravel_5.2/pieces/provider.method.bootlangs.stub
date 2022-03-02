@@ -4,12 +4,12 @@
      *
      * @return void
      */
-    protected function langHandle()
+    protected function bootTranslations()
     {
         $packageTranslationsPath = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourceDirPath("lang"), '/'); @callback}}';
 
         $this->loadTranslationsFrom($packageTranslationsPath, '{{@package slug_project @package}}');
         $this->publishes([
-            $packageTranslationsPath => base_path('resources/lang/vendor/{{@package slug_project @package}}'),
+            $packageTranslationsPath => resource_path('lang/vendor/{{@package slug_project @package}}'),
         ], 'lang');
     }

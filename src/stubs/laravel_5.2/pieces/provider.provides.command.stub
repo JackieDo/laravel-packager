@@ -1,0 +1,1 @@
+            {{@callback return $creator->getResourceName('command'); @callback}}::class,

@@ -1,0 +1,18 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+{{@import route.use.controller|controller @import}}
+
+Route::group(['prefix' => '{{@package slug_project @package}}'], function() {
+    Route::get('demo', {{@callback
+
+    if (array_key_exists('controller', $creator->resourceDirPaths)) {
+        return $creator->getResourceName('controller') . "::class . '@demo'";
+    }
+
+    return "function() {
+        return 'Welcome to the [{{@package name @package}}] package';
+    }";
+
+    @callback}});
+});

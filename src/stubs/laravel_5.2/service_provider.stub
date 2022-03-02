@@ -1,0 +1,80 @@
+<?php
+
+namespace {{@package namespace @package}};
+
+use Illuminate\Support\ServiceProvider;
+{{@import provider.use.command|command @import}}
+
+/**
+ * The {{@package project @package}}ServiceProvider class.
+ *
+ * @package {{@package name @package}}
+ * @author  {{@package author @package}}
+ */
+class {{@package project @package}}ServiceProvider extends ServiceProvider
+{
+    /**
+     * Register application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        {{@import provider.register.config|config @import}}
+        // Register package's main service
+        $this->app->singleton({{@package project @package}}::class, function ($app) {
+            return new {{@package project @package}};
+        });
+        {{@import provider.register.command|command @import}}
+    }
+
+    /**
+     * Bootstrap application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Bootstrap handle
+        {{@import provider.boot.config|config @import}}
+        {{@import provider.boot.commands|command @import}}
+        {{@import provider.boot.routes|route @import}}
+        {{@import provider.boot.langs|lang @import}}
+        {{@import provider.boot.views|view @import}}
+        {{@import provider.boot.assets|asset @import}}
+        {{@import provider.boot.migrations|migration @import}}
+    }
+
+    /**
+     * Determine if the provider is deferred.
+     *
+     * @return bool
+     */
+    public function isDeferred()
+    {
+        return false;
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * This method is only really useful when the `isDeferred()` method above
+     * returns `true`
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            {{@package project @package}}::class,
+            {{@import provider.provides.command|command @import}}
+        ];
+    }
+    {{@import provider.method.bootconfig|config @import}}
+    {{@import provider.method.bootcommands|command @import}}
+    {{@import provider.method.bootroutes|route @import}}
+    {{@import provider.method.bootlangs|lang @import}}
+    {{@import provider.method.bootviews|view @import}}
+    {{@import provider.method.bootassets|asset @import}}
+    {{@import provider.method.bootmigrations|migration @import}}
+}

@@ -19,13 +19,6 @@ use Jackiedo\Packager\Console\Commands\UnregisterPackageCommand;
 class PackagerServiceProvider extends ServiceProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
      * Path to the package's configuration file.
      *
      * @var string
@@ -55,6 +48,8 @@ class PackagerServiceProvider extends ServiceProvider
         $this->publishes([
             $this->packageConfig => config_path('packager.php'),
         ], 'config');
+
+        $this->commands(array_values($this->commands));
     }
 
     /**
@@ -71,6 +66,16 @@ class PackagerServiceProvider extends ServiceProvider
         $this->registerManager();
 
         $this->registerCommands($this->commands);
+    }
+
+    /**
+     * Determine if the provider is deferred.
+     *
+     * @return bool
+     */
+    public function isDeferred()
+    {
+        return true;
     }
 
     /**
@@ -122,7 +127,5 @@ class PackagerServiceProvider extends ServiceProvider
                 return new $className($app['config'], $app['packager.manager']);
             });
         }
-
-        $this->commands(array_values($commands));
     }
 }

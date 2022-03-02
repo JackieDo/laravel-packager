@@ -92,22 +92,21 @@ class PackageCreator implements CreatorRepository
      *
      * @var array
      */
-    private static $compatibleStubVersions = [];
+    protected $compatibleStubSet = [];
 
     /**
      * Create a new package creator instance.
      *
-     * @param object $config The config repository instance
-     * @param object $files  The filesystem handler instance
+     * @param Config     $config  The config repository instance
+     * @param Filesystem $files   The filesystem handler instance
      *
      * @return void
      */
     public function __construct(Config $config, Filesystem $files)
     {
-        $this->config                 = $config;
-        $this->files                  = $files;
-        $this->tempStorage            = $this->config->get('packager.temporary_storage') ?: storage_path('packager/temp');
-        self::$compatibleStubVersions = self::findCompatibleStubVersions();
+        $this->config      = $config;
+        $this->files       = $files;
+        $this->tempStorage = $this->config->get('packager.temporary_storage') ?: storage_path('packager/temp');
     }
 
     /**
@@ -131,13 +130,16 @@ class PackageCreator implements CreatorRepository
     /**
      * Create package with a given storage path.
      *
-     * @param object $package The package instance
-     * @param string $storeAt The path to directory used to store the package
+     * @param Package      $package               The package instance
+     * @param string       $storeAt               The path to directory used to store the package
+     * @param string|null  $lowestLaravelVersion  Lowest Laravel thread version that the package supports
      *
      * @return bool
      */
-    public function create(Package $package, $storeAt)
+    public function create(Package $package, $storeAt, $lowestLaravelVersion = null)
     {
+        $this->setCompatibleStubSet($lowestLaravelVersion);
+
         $this->package          = $package;
         $this->storagePath      = $storeAt;
         $this->resourceDirPaths = $this->buildResourceDirPaths($package->resources);
@@ -289,7 +291,7 @@ class PackageCreator implements CreatorRepository
                 break;
 
             case 'command':
-                return $this->package->project . 'Command.php';
+                return 'DemoCommand.php';
                 break;
 
             case 'trait':
@@ -344,6 +346,37 @@ class PackageCreator implements CreatorRepository
     public function isBasicCreation()
     {
         return 0 == count($this->resourceDirPaths);
+    }
+
+    /**
+     * Setup compatible stub versions
+     *
+     * @param string|null  $lowestLaravelVersion  Lowest Laravel thread version that stub file compatible with
+     *
+     * @return void
+     */
+    protected function setCompatibleStubSet($lowestLaravelVersion = null)
+    {
+        $lowestLaravelVersion    = $lowestLaravelVersion ?: $this->laravelThreadVersion();
+        $this->compatibleStubSet = $this->matchStubSet($lowestLaravelVersion);
+    }
+
+    /**
+     * Return thread version from Laravel version of application.
+     *
+     * @return string
+     */
+    protected function laravelThreadVersion()
+    {
+        $versionParts = explode('.', app()->version());
+
+        array_pop($versionParts);
+
+        if ((int) $versionParts[0] >= 6) {
+            return $versionParts[0] . '.0';
+        }
+
+        return implode('.', $versionParts);
     }
 
     /**
@@ -532,7 +565,7 @@ class PackageCreator implements CreatorRepository
      */
     protected function copyStub($stubName, $toFile, $formatContent = true, $defaultContent = null)
     {
-        $stubFile = self::getStubFilePath($stubName);
+        $stubFile = $this->getStubFilePath($stubName);
         $content  = !is_null($stubFile) ? $this->files->get($stubFile) : $defaultContent;
 
         if ($formatContent) {
@@ -567,10 +600,10 @@ class PackageCreator implements CreatorRepository
                     return null;
                 }
 
-                $importFile = self::getStubFilePath('pieces/' . $segments[0]);
+                $importFile = $this->getStubFilePath('pieces/' . $segments[0]);
             } else {
                 // Import file without condition
-                $importFile = self::getStubFilePath('pieces/' . $matchContent);
+                $importFile = $this->getStubFilePath('pieces/' . $matchContent);
             }
 
             $importContent = !is_null($importFile) ? $this->files->get($importFile) : null;
@@ -613,11 +646,11 @@ class PackageCreator implements CreatorRepository
      *
      * @return string|null
      */
-    private function getStubFilePath($stub)
+    protected function getStubFilePath($stub)
     {
         $stub = trim((string) $stub, '/\\');
 
-        foreach (self::$compatibleStubVersions as $folder) {
+        foreach ($this->compatibleStubSet as $folder) {
             $stubFile = unify_separator(__DIR__ . '/stubs//' . $folder . '/' . $stub . '.stub');
 
             if ($this->files->isFile($stubFile)) {
@@ -629,25 +662,27 @@ class PackageCreator implements CreatorRepository
     }
 
     /**
-     * Find stub versions compatible with Laravel thread version
+     * Find stub versions compatible with specific Laravel thread version
+     *
+     * @param string $limitVersion Laravel thread version use to as limit
      *
      * @return array
      */
-    private function findCompatibleStubVersions()
+    protected function matchStubSet($limitVersion)
     {
         $stubSubFolders = array_map(function ($path) {
             return basename($path);
         }, $this->files->glob(__DIR__ . '/stubs/*', GLOB_ONLYDIR));
 
-        $versionFolders = array_values(array_filter($stubSubFolders, function ($name, $index) {
-            $version = self::getFolderVersion($name);
+        $versionFolders = array_values(array_filter($stubSubFolders, function ($name, $index) use ($limitVersion) {
+            $version = $this->getFolderVersion($name);
 
-            return preg_match('/^\d+\.\d+$/', $version) && version_compare($version, self::findLaravelThreadVersion(), '<=');
+            return preg_match('/^\d+\.\d+$/', $version) && version_compare($version, $limitVersion, '<=');
         }, ARRAY_FILTER_USE_BOTH));
 
         uksort($versionFolders, function($front, $behind) {
-            $front  = self::getFolderVersion($front);
-            $behind = self::getFolderVersion($behind);
+            $front  = $this->getFolderVersion($front);
+            $behind = $this->getFolderVersion($behind);
 
             return version_compare($behind, $front);
         });
@@ -664,26 +699,8 @@ class PackageCreator implements CreatorRepository
      *
      * @return string
      */
-    private function getFolderVersion($name)
+    protected function getFolderVersion($name)
     {
         return str_replace('laravel_', '', $name);
-    }
-
-    /**
-     * Find the thread version of Laravel from current Laravel version.
-     *
-     * @return string
-     */
-    private function findLaravelThreadVersion()
-    {
-        $laravelVersionParts = explode('.', app()->version());
-
-        array_pop($laravelVersionParts);
-
-        if ((int) $laravelVersionParts[0] >= 6) {
-            return $laravelVersionParts[0] . '.0';
-        }
-
-        return implode('.', $laravelVersionParts);
     }
 }

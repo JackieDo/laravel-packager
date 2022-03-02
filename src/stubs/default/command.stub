@@ -45,7 +45,7 @@ class {{@callback return $creator->getResourceName('command'); @callback}} exten
      */
     public function fire()
     {
-        $this->info('Welcome to first command for the [{{@package name @package}}] package');
+        $this->info('Welcome to demo command for the [{{@package name @package}}] package');
     }
 
     /**

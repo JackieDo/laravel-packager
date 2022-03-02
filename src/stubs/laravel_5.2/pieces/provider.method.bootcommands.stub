@@ -1,0 +1,14 @@
+
+    /**
+     * Handle package's commands
+     *
+     * @return void
+     */
+    protected function bootCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                {{@callback return $creator->getResourceName('command'); @callback}}::class
+            ]);
+        }
+    }

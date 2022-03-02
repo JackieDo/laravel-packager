@@ -1,0 +1,36 @@
+{
+    "name": "{{@package name @package}}",
+    "description": "{{@package description @package}}",
+    "keywords": [{{@callback return '"' . implode('", "', $creator->package->keywords) . '"'; @callback}}],
+    "license": "{{@package license @package}}",
+    "homepage": "{{@package homepage @package}}",
+    "authors": [
+        {
+            "name": "{{@package author_name @package}}",
+            "email": "{{@package author_email @package}}"
+        }
+    ],
+    "require": {
+        "php": "^8.0.2",
+        "illuminate/support": "^9.0"
+    },
+    "autoload": {
+        {{@import composer.autoload.files|helper @import}}
+        "psr-4": {
+            "{{@package addslashed_namespace @package}}\\": "src{{@callback
+                $namespaceDirectory = '/' . unify_separator($creator->package->namespace_directory, '/');
+
+                return rtrim($namespaceDirectory, '/');
+            @callback}}"
+        }
+    },
+    "extra": {
+        "laravel": {
+            {{@import composer.extra.laravel.aliases|facade @import}}
+            "providers": [
+                "{{@package addslashed_namespace @package}}\\{{@package project @package}}ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable"
+}

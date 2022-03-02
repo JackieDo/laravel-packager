@@ -1,10 +1,10 @@
 
     /**
-     * Publishing package's assets (JavaScript, CSS, images...)
+     * Publish package's assets (JavaScript, CSS, images...)
      *
      * @return void
      */
-    protected function assetHandle()
+    protected function bootAssets()
     {
         $packageAssetsPath = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourceDirPath("asset"), '/'); @callback}}';
 

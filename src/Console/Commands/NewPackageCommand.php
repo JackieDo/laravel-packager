@@ -71,6 +71,15 @@ class NewPackageCommand extends Command
     ];
 
     /**
+     * Available Laravel thread versions
+     *
+     * @var array
+     */
+    protected $laravelVersions = [
+        '5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '6.0', '7.0', '8.0', '9.0'
+    ];
+
+    /**
      * Execute the console command.
      *
      * @return void
@@ -119,7 +128,7 @@ class NewPackageCommand extends Command
         }
 
         $this->successBlock('Your package has been created successfully.');
-        $this->whiteBlock('You can install your package using the command: "composer require ' . $this->package->name . ':*"');
+        $this->whiteBlock('You can install your package using the command: composer require "' . $this->package->name . ':*"');
     }
 
     /**
@@ -248,12 +257,21 @@ class NewPackageCommand extends Command
      */
     protected function createPackage()
     {
+        if ($this->config->get('packager.ask_lowest_laravel_version', true)) {
+            $this->section('Laravel version compatibility.');
+
+            $choiceMessage     = 'Choose the lowest Laravel threading version that package will support';
+            $minLaravelVersion = $this->choice($choiceMessage, $this->laravelVersions, 0, 3, false);
+        } else {
+            $minLaravelVersion = null;
+        }
+
         $this->section('Perform Package Creation.');
         $this->info('This will take a bit of your time. Please wait.');
         $this->newLine();
         $this->write('Creating the package...');
 
-        $result = $this->manager->create($this->package);
+        $result = $this->manager->create($this->package, $minLaravelVersion);
 
         if ($result) {
             $this->comment(' OK');

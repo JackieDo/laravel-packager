@@ -81,4 +81,18 @@ return [
 
     'delete_temp_after_do' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Ask the lowest Laravel thread version
+    |--------------------------------------------------------------------------
+    |
+    | This setting indicates whether or not to ask the lowest Laravel thread
+    | version that generated package will support during package creation.
+    | If it is set to false, the package will only be generated to support from
+    | current Laravel version of project only.
+    |
+    */
+
+    'ask_lowest_laravel_version' => true,
+
 ];

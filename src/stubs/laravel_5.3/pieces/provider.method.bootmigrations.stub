@@ -1,17 +1,14 @@
 
     /**
-     * Publishing package's migrations
+     * Loading and publishing package's migrations
      *
      * @return void
      */
-    protected function migrationHandle()
+    protected function bootMigrations()
     {
         $packageMigrationsPath = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourceDirPath("migration"), '/'); @callback}}';
 
-        if (method_exists($this, 'loadMigrationsFrom')) {
-            $this->loadMigrationsFrom($packageMigrationsPath);
-        }
-
+        $this->loadMigrationsFrom($packageMigrationsPath);
         $this->publishes([
             $packageMigrationsPath => database_path('migrations')
         ], 'migrations');

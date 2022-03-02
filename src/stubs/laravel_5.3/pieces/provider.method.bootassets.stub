@@ -1,0 +1,14 @@
+
+    /**
+     * Publish package's assets (JavaScript, CSS, images...)
+     *
+     * @return void
+     */
+    protected function bootAssets()
+    {
+        $packageAssetsPath = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourceDirPath("asset"), '/'); @callback}}';
+
+        $this->publishes([
+            $packageAssetsPath => public_path('vendor/{{@package slug_project @package}}'),
+        ], 'public');
+    }

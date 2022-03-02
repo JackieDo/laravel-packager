@@ -4,7 +4,7 @@
      *
      * @return void
      */
-    protected function viewHandle()
+    protected function bootViews()
     {
         $packageViewsPath = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourceDirPath("view"), '/'); @callback}}';
 

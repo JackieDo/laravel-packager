@@ -1,22 +1,18 @@
 
     /**
-     * Loading package routes
+     * Loading package's routes
      *
      * @return void
      */
-    protected function routeHandle()
+    protected function bootRoutes()
     {
         $packageRoutes = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourcePath("route"), '/'); @callback}}';
 
         if (method_exists($this, 'loadRoutesFrom')) {
             $this->loadRoutesFrom($packageRoutes);
         } else {
-            if (method_exists($this->app, 'routesAreCached')) {
-                if (! $this->app->routesAreCached()) {
-                    require $packageRoutes;
-                }
-            } else {
-                include $packageRoutes;
+            if (! $this->app->routesAreCached()) {
+                require $packageRoutes;
             }
         }
     }

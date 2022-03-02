@@ -209,13 +209,14 @@ class PackageManager implements ManagerRepository
     /**
      * Create a package.
      *
-     * @param object $package The package instance
+     * @param Package     $package               The package instance
+     * @param string|null $lowestLaravelVersion  Lowest Laravel thread version that the package supports
      *
      * @return bool
      */
-    public function create(Package $package)
+    public function create(Package $package, $lowestLaravelVersion = null)
     {
-        $result = $this->creator->create($package->lock(), $this->packageStoragePath($package));
+        $result = $this->creator->create($package->lock(), $this->packageStoragePath($package), $lowestLaravelVersion);
 
         if ($result) {
             $this->register($package->name);

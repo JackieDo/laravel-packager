@@ -1,0 +1,12 @@
+
+    /**
+     * Handle package's commands
+     *
+     * @return void
+     */
+    protected function bootCommands()
+    {
+        $this->commands([
+            'command.{{@package slug_project @package}}.demo'
+        ]);
+    }

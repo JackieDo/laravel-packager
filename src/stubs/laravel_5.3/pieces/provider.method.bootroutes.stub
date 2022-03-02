@@ -1,0 +1,12 @@
+
+    /**
+     * Loading package's routes
+     *
+     * @return void
+     */
+    protected function bootRoutes()
+    {
+        $packageRoutes = __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourcePath("route"), '/'); @callback}}';
+
+        $this->loadRoutesFrom($packageRoutes);
+    }

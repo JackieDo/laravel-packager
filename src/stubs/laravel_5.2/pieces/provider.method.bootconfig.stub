@@ -1,0 +1,22 @@
+
+    /**
+     * Get package's default config file path
+     *
+     * @return string
+     */
+    protected function getPackageConfigPath()
+    {
+        return __DIR__ . '/{{@callback return relative_path($creator->namespaceDirPath, $creator->getResourcePath("config"), '/'); @callback}}';
+    }
+
+    /**
+     * Publishing package's config
+     *
+     * @return void
+     */
+    protected function bootConfig()
+    {
+        $this->publishes([
+            $this->getPackageConfigPath() => config_path('{{@package slug_project @package}}.php')
+        ], 'config');
+    }

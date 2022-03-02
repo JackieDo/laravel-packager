@@ -1,0 +1,3 @@
+        // Load package's config
+        $this->mergeConfigFrom($this->getPackageConfigPath(), '{{@package slug_project @package}}');
+

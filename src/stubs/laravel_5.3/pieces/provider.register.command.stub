@@ -1,0 +1,5 @@
+
+        // Register package's command services
+        $this->app->singleton({{@callback return $creator->getResourceName('command'); @callback}}::class, function ($app) {
+            return new {{@callback return $creator->getResourceName('command'); @callback}};
+        });
