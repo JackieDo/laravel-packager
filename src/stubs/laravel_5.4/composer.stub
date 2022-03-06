@@ -18,7 +18,7 @@
         {{@import composer.autoload.files|helper @import}}
         "psr-4": {
             "{{@package addslashed_namespace @package}}\\": "src{{@callback
-                $namespaceDirectory = '/' . unify_separator($creator->package->namespace_directory, '/');
+                $namespaceDirectory = '/' . normalize_path($creator->package->namespace_directory, '/');
 
                 return rtrim($namespaceDirectory, '/');
             @callback}}"

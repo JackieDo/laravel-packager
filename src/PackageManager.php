@@ -74,7 +74,7 @@ class PackageManager implements ManagerRepository
     {
         $packageDir = ($package instanceof Package) ? $package->name : $package;
 
-        return unify_separator($this->storagePath . '/' . $packageDir);
+        return normalize_path($this->storagePath . '/' . $packageDir);
     }
 
     /**

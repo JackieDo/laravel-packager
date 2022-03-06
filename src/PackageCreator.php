@@ -177,7 +177,7 @@ class PackageCreator implements CreatorRepository
      */
     public function getSrcDirPath()
     {
-        return unify_separator($this->storagePath . '/src');
+        return normalize_path($this->storagePath . '/src');
     }
 
     /**
@@ -187,7 +187,7 @@ class PackageCreator implements CreatorRepository
      */
     public function getTestsDirPath()
     {
-        return unify_separator($this->storagePath . '/tests');
+        return normalize_path($this->storagePath . '/tests');
     }
 
     /**
@@ -200,7 +200,7 @@ class PackageCreator implements CreatorRepository
         $namespaceDir = trim($this->package->namespace_directory);
 
         if (!empty($namespaceDir)) {
-            return unify_separator($this->getSrcDirPath() . '/' . $namespaceDir);
+            return normalize_path($this->getSrcDirPath() . '/' . $namespaceDir);
         }
 
         return $this->getSrcDirPath();
@@ -215,7 +215,7 @@ class PackageCreator implements CreatorRepository
      */
     public function getResourceDirPath($resource)
     {
-        return unify_separator(Arr::get($this->resourceDirPaths, $resource));
+        return normalize_path(Arr::get($this->resourceDirPaths, $resource));
     }
 
     /**
@@ -230,10 +230,10 @@ class PackageCreator implements CreatorRepository
         $path = $this->resourceDirPaths[$resource];
 
         if ('lang' == Str::lower($resource)) {
-            return unify_separator($path . '/en//' . $this->getResourceBaseName('lang'));
+            return normalize_path($path . '/en//' . $this->getResourceBaseName('lang'));
         }
 
-        return unify_separator($path . '/' . $this->getResourceBaseName($resource));
+        return normalize_path($path . '/' . $this->getResourceBaseName($resource));
     }
 
     /**
@@ -527,7 +527,7 @@ class PackageCreator implements CreatorRepository
      */
     protected function standardizeDirComponent($directory, $titleCase = false)
     {
-        $directory = trim(unify_separator($directory, '/'), '/');
+        $directory = trim(normalize_path($directory, '/'), '/');
 
         // Standardize the name of components in the directory
         $segments = array_map(function ($component) use ($titleCase) {
@@ -651,7 +651,7 @@ class PackageCreator implements CreatorRepository
         $stub = trim((string) $stub, '/\\');
 
         foreach ($this->compatibleStubSet as $folder) {
-            $stubFile = unify_separator(__DIR__ . '/stubs//' . $folder . '/' . $stub . '.stub');
+            $stubFile = normalize_path(__DIR__ . '/stubs//' . $folder . '/' . $stub . '.stub');
 
             if ($this->files->isFile($stubFile)) {
                 return $stubFile;

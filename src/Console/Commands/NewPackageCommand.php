@@ -196,7 +196,7 @@ class NewPackageCommand extends Command
             'src',
             'src/app',
             'src/' . $this->package->vendor . '/' . $this->package->project,
-            'src/' . unify_separator($namespace, '/'),
+            'src/' . normalize_path($namespace, '/'),
         ])), 0, 3, false);
 
         $namespaceDir = trim(substr($namespaceDir, 3), '/');
