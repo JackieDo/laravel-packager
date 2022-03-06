@@ -82,8 +82,8 @@ class Command extends IlluminateCommand
      * Prompt the user for input.
      *
      * @param string          $question
-     * @param string|null     $default
-     * @param string|callable $validator
+     * @param null|string     $default
+     * @param callable|string $validator
      *
      * @return mixed
      */
@@ -96,11 +96,12 @@ class Command extends IlluminateCommand
      * Give the user a single choice from an array of answers.
      *
      * @param string      $question
-     * @param string|null $default
-     * @param mixed|null  $attempts
+     * @param null|string $default
+     * @param null|mixed  $attempts
      * @param bool        $multiple
+     * @param null|mixed  $normalizer
      *
-     * @return string|array
+     * @return array|string
      */
     public function choice($question, array $choices, $default = null, $attempts = null, $multiple = false, $normalizer = null)
     {
@@ -128,13 +129,13 @@ class Command extends IlluminateCommand
      *
      * @param string          $message
      * @param string          $style
-     * @param int|string|null $verbosity
+     * @param null|int|string $verbosity
      *
      * @return void
      */
     public function write($message, $style = null, $verbosity = null)
     {
-        $styled = $style ? "<$style>$message</$style>" : $message;
+        $styled = $style ? "<{$style}>{$message}</{$style}>" : $message;
 
         if (method_exists($this, 'parseVerbosity')) {
             $this->output->write($styled, false, $this->parseVerbosity($verbosity));
@@ -170,7 +171,7 @@ class Command extends IlluminateCommand
     /**
      * Formats a message as a block of text.
      *
-     * @param string|array $messages The message to write in the block
+     * @param array|string $messages The message to write in the block
      * @param string       $label    The content will be display in front of message
      * @param string       $style    The output formatter style
      * @param string       $prefix   The prefix content will be display in front of label
@@ -187,11 +188,12 @@ class Command extends IlluminateCommand
     /**
      * Format a message as a block with background is white.
      *
-     * @param string|array $messages The message to write in the block
+     * @param array|string $messages The message to write in the block
      * @param string       $label    The content will be display in front of message
      * @param string       $prefix   The prefix content will be display in front of label
      * @param bool         $padding
      * @param bool         $escape
+     * @param mixed        $message
      *
      * @return void
      */
@@ -203,11 +205,12 @@ class Command extends IlluminateCommand
     /**
      * Format a message as a block with the success style.
      *
-     * @param string|array $messages The message to write in the block
+     * @param array|string $messages The message to write in the block
      * @param string       $label    The content will be display in front of message
      * @param string       $prefix   The prefix content will be display in front of label
      * @param bool         $padding
      * @param bool         $escape
+     * @param mixed        $message
      *
      * @return void
      */
@@ -219,11 +222,12 @@ class Command extends IlluminateCommand
     /**
      * Format a message as a block with the warning style.
      *
-     * @param string|array $messages The message to write in the block
+     * @param array|string $messages The message to write in the block
      * @param string       $label    The content will be display in front of message
      * @param string       $prefix   The prefix content will be display in front of label
      * @param bool         $padding
      * @param bool         $escape
+     * @param mixed        $message
      *
      * @return void
      */
@@ -235,11 +239,12 @@ class Command extends IlluminateCommand
     /**
      * Format a message as a block with the error style.
      *
-     * @param string|array $messages The message to write in the block
+     * @param array|string $messages The message to write in the block
      * @param string       $label    The content will be display in front of message
      * @param string       $prefix   The prefix content will be display in front of label
      * @param bool         $padding
      * @param bool         $escape
+     * @param mixed        $message
      *
      * @return void
      */

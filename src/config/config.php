@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Creation suggestions
@@ -94,5 +93,4 @@ return [
     */
 
     'ask_lowest_laravel_version' => true,
-
 ];

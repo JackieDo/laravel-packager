@@ -70,7 +70,7 @@ class Package
     /**
      * Set the package information.
      *
-     * @param string|array $information The information of package
+     * @param array|string $information The information of package
      * @param mixed        $value       The value want to set
      *
      * @throws ErrorException
@@ -313,8 +313,9 @@ class Package
     /**
      * Format information before set.
      *
-     * @param string $info  The information need format
-     * @param mixed  $value The original of information
+     * @param string $info        The information need format
+     * @param mixed  $value       The original of information
+     * @param mixed  $information
      *
      * @return mixed
      */

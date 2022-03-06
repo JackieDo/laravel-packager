@@ -88,7 +88,7 @@ class PackageCreator implements CreatorRepository
     protected $resourceDirPaths = [];
 
     /**
-     * Stubs versions compatible with Laravel thread version
+     * Stubs versions compatible with Laravel thread version.
      *
      * @var array
      */
@@ -97,8 +97,8 @@ class PackageCreator implements CreatorRepository
     /**
      * Create a new package creator instance.
      *
-     * @param Config     $config  The config repository instance
-     * @param Filesystem $files   The filesystem handler instance
+     * @param Config     $config The config repository instance
+     * @param Filesystem $files  The filesystem handler instance
      *
      * @return void
      */
@@ -130,9 +130,9 @@ class PackageCreator implements CreatorRepository
     /**
      * Create package with a given storage path.
      *
-     * @param Package      $package               The package instance
-     * @param string       $storeAt               The path to directory used to store the package
-     * @param string|null  $lowestLaravelVersion  Lowest Laravel thread version that the package supports
+     * @param Package     $package              The package instance
+     * @param string      $storeAt              The path to directory used to store the package
+     * @param null|string $lowestLaravelVersion Lowest Laravel thread version that the package supports
      *
      * @return bool
      */
@@ -349,9 +349,9 @@ class PackageCreator implements CreatorRepository
     }
 
     /**
-     * Setup compatible stub versions
+     * Setup compatible stub versions.
      *
-     * @param string|null  $lowestLaravelVersion  Lowest Laravel thread version that stub file compatible with
+     * @param null|string $lowestLaravelVersion Lowest Laravel thread version that stub file compatible with
      *
      * @return void
      */
@@ -619,7 +619,7 @@ class PackageCreator implements CreatorRepository
         }, $content);
 
         // handle the @callback directive handle
-        $content = preg_replace_callback('/\{\{\@callback\s*(.*)\s*\@callback\}\}/msU', function ($match) {
+        return preg_replace_callback('/\{\{\@callback\s*(.*)\s*\@callback\}\}/msU', function ($match) {
             $code = $match[1];
 
             // Evaluate code
@@ -635,16 +635,14 @@ class PackageCreator implements CreatorRepository
 
             return $executed;
         }, $content);
-
-        return $content;
     }
 
     /**
-     * Get the path to stub file compatible with the Laravel thread version
+     * Get the path to stub file compatible with the Laravel thread version.
      *
      * @param string $stub The path to stub file from stub folder (without extension)
      *
-     * @return string|null
+     * @return null|string
      */
     protected function getStubFilePath($stub)
     {
@@ -662,7 +660,7 @@ class PackageCreator implements CreatorRepository
     }
 
     /**
-     * Find stub versions compatible with specific Laravel thread version
+     * Find stub versions compatible with specific Laravel thread version.
      *
      * @param string $limitVersion Laravel thread version use to as limit
      *
@@ -680,7 +678,7 @@ class PackageCreator implements CreatorRepository
             return preg_match('/^\d+\.\d+$/', $version) && version_compare($version, $limitVersion, '<=');
         }, ARRAY_FILTER_USE_BOTH));
 
-        uksort($versionFolders, function($front, $behind) {
+        uksort($versionFolders, function ($front, $behind) {
             $front  = $this->getFolderVersion($front);
             $behind = $this->getFolderVersion($behind);
 
@@ -693,7 +691,7 @@ class PackageCreator implements CreatorRepository
     }
 
     /**
-     * Get version string from folder name
+     * Get version string from folder name.
      *
      * @param string $name
      *

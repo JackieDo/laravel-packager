@@ -16,9 +16,9 @@ interface CreatorRepository
     /**
      * Create package with a given storage path.
      *
-     * @param Package      $package               The package instance
-     * @param string       $storeAt               The path to directory used to store the package
-     * @param string|null  $lowestLaravelVersion  Lowest Laravel thread version that the package supports
+     * @param Package     $package              The package instance
+     * @param string      $storeAt              The path to directory used to store the package
+     * @param null|string $lowestLaravelVersion Lowest Laravel thread version that the package supports
      *
      * @return bool
      */

@@ -71,12 +71,12 @@ class NewPackageCommand extends Command
     ];
 
     /**
-     * Available Laravel thread versions
+     * Available Laravel thread versions.
      *
      * @var array
      */
     protected $laravelVersions = [
-        '5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '6.0', '7.0', '8.0', '9.0'
+        '5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '6.0', '7.0', '8.0', '9.0',
     ];
 
     /**

@@ -23,8 +23,8 @@ interface ManagerRepository
     /**
      * Create a package.
      *
-     * @param Package     $package               The package instance
-     * @param string|null $lowestLaravelVersion  Lowest Laravel thread version that the package supports
+     * @param Package     $package              The package instance
+     * @param null|string $lowestLaravelVersion Lowest Laravel thread version that the package supports
      *
      * @return bool
      */
