@@ -15,6 +15,9 @@ trim_trailing_whitespace = true
 insert_final_newline = false
 trim_trailing_whitespace = false
 
+[*.{min.css,min.js}]
+insert_final_newline = false
+
 [*.{yml,yaml}]
 indent_size = 2
 
