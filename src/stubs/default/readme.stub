@@ -1,0 +1,2 @@
+# {{@callback return ucwords(strtolower(str_replace('-', ' ', $creator->package->slug_project))); @callback}}
+{{@package description @package}}

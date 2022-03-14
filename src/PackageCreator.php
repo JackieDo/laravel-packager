@@ -437,17 +437,29 @@ class PackageCreator implements CreatorRepository
      */
     protected function createBasicFiles()
     {
+        // Create .editorconfig
+        $this->copyStub('editorconfig', $this->storagePath . '/.editorconfig', false);
+
+        // Create .gitattributes
+        $this->copyStub('gitattributes', $this->storagePath . '/.gitattributes', false);
+
         // Create .gitignore
         $this->copyStub('gitignore', $this->storagePath . '/.gitignore', false);
 
-        // Create phpunit.xml
-        $this->copyStub('phpunit', $this->storagePath . '/phpunit.xml', false);
+        // Create .php-cs-fixer.dist.php
+        $this->copyStub('php-cs-fixer', $this->storagePath . '/.php-cs-fixer.dist.php', false);
 
         // Create .travis.yml
         $this->copyStub('travis', $this->storagePath . '/.travis.yml', false);
 
+        // Create phpunit.xml
+        $this->copyStub('phpunit', $this->storagePath . '/phpunit.xml', false);
+
         // Create composer.json
         $this->copyStub('composer', $this->storagePath . '/composer.json');
+
+        // Create README.md
+        $this->copyStub('readme', $this->storagePath . '/README.md');
 
         // Create main class
         $this->copyStub('main_class', $this->namespaceDirPath . '/' . $this->package->project . '.php');
