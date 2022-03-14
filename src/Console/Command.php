@@ -96,11 +96,11 @@ class Command extends IlluminateCommand
      * Give the user a single choice from an array of answers.
      *
      * @param string      $question
+     * @param array       $choices
      * @param null|string $default
      * @param null|mixed  $attempts
      * @param bool        $multiple
      * @param null|mixed  $normalizer
-     * @param array       $choices
      *
      * @return array|string
      */
