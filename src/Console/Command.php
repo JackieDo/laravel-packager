@@ -100,6 +100,7 @@ class Command extends IlluminateCommand
      * @param null|mixed  $attempts
      * @param bool        $multiple
      * @param null|mixed  $normalizer
+     * @param array       $choices
      *
      * @return array|string
      */
@@ -255,6 +256,9 @@ class Command extends IlluminateCommand
 
     /**
      * Execute the console command.
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
      *
      * @return int
      */
