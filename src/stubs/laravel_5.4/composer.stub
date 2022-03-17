@@ -20,7 +20,7 @@
             "{{@package addslashed_namespace @package}}\\": "src{{@callback
                 $namespaceDirectory = '/' . normalize_path($creator->package->namespace_directory, '/');
 
-                return rtrim($namespaceDirectory, '/');
+                return rtrim($namespaceDirectory, '/') . '/';
             @callback}}"
         }
     },
