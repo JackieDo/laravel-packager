@@ -2,9 +2,7 @@
 
 namespace Jackiedo\Packager\Console\Commands;
 
-use Exception;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Jackiedo\Packager\Console\Command;
 use Jackiedo\Packager\Package;
 use Jackiedo\Packager\Traits\ValidatePackageName;
@@ -90,7 +88,7 @@ class NewPackageCommand extends Command
 
         try {
             $this->validatePackageName($packageName);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->errorBlock($exception->getMessage());
 
             return false;
@@ -182,11 +180,11 @@ class NewPackageCommand extends Command
             $answer = trim($answer, '\\');
 
             if (empty($answer)) {
-                throw new InvalidArgumentException('The namespace cannot be empty.');
+                throw new \InvalidArgumentException('The namespace cannot be empty.');
             }
 
             if (!preg_match('/^[a-zA-Z0-9\\\\]+$/', $answer)) {
-                throw new InvalidArgumentException('The namespace can only contain letters, numbers and backslashes.');
+                throw new \InvalidArgumentException('The namespace can only contain letters, numbers and backslashes.');
             }
 
             return $answer;

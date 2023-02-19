@@ -2,7 +2,6 @@
 
 namespace Jackiedo\Packager\Console\Commands;
 
-use Exception;
 use Jackiedo\Packager\Console\Command;
 use Jackiedo\Packager\Traits\ValidatePackageName;
 use Symfony\Component\Console\Input\InputArgument;
@@ -44,7 +43,7 @@ class UnregisterPackageCommand extends Command
 
         try {
             $this->validatePackageName($packageName);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->errorBlock($exception->getMessage());
 
             return false;

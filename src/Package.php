@@ -2,7 +2,6 @@
 
 namespace Jackiedo\Packager;
 
-use ErrorException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -73,14 +72,14 @@ class Package
      * @param array|string $information The information of package
      * @param mixed        $value       The value want to set
      *
-     * @throws ErrorException
-     *
      * @return $this
+     *
+     * @throws \ErrorException
      */
     public function setInformation($information, $value = null)
     {
         if ($this->isLocked()) {
-            throw new ErrorException('Setting package information is locked.');
+            throw new \ErrorException('Setting package information is locked.');
         }
 
         if ($information) {

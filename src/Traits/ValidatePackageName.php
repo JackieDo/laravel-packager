@@ -2,8 +2,6 @@
 
 namespace Jackiedo\Packager\Traits;
 
-use InvalidArgumentException;
-
 /**
  * The ValidatePackageName trait.
  *
@@ -18,18 +16,18 @@ trait ValidatePackageName
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException
-     *
      * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
     protected function validatePackageName($name)
     {
         if (!preg_match('/^[-\w\/]+$/', $name)) {
-            throw new InvalidArgumentException('The package name can only contain letters, numbers, underscores, dashes and slashes.');
+            throw new \InvalidArgumentException('The package name can only contain letters, numbers, underscores, dashes and slashes.');
         }
 
         if (!preg_match('/^[-\w]+\/[-\w]+$/', $name)) {
-            throw new InvalidArgumentException('The package name must be of form: <vendor>/<project>');
+            throw new \InvalidArgumentException('The package name must be of form: <vendor>/<project>');
         }
 
         return true;
