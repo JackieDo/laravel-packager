@@ -7,7 +7,7 @@ Route::prefix('{{@package slug_project @package}}')->group(function() {
     Route::get('demo', {{@callback
 
     if (array_key_exists('controller', $creator->resourceDirPaths)) {
-        return "[" . $creator->getResourceName('controller') . "::class, 'demo']";
+        return $creator->getResourceName('controller') . "::class . '@demo'";
     }
 
     return "function() {
