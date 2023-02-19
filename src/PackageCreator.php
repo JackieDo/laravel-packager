@@ -690,7 +690,7 @@ class PackageCreator implements CreatorRepository
             return preg_match('/^\d+\.\d+$/', $version) && version_compare($version, $limitVersion, '<=');
         }, ARRAY_FILTER_USE_BOTH));
 
-        uksort($versionFolders, function ($front, $behind) {
+        usort($versionFolders, function ($front, $behind) {
             $front  = $this->getFolderVersion($front);
             $behind = $this->getFolderVersion($behind);
 
